@@ -5,15 +5,15 @@ You'll need Apache Maven to build/run this project: https://maven.apache.org/
 
 To build and run tests:
 
-mvn package
+`mvn package`
 
 To run:
 
-mvn exec:java
+`mvn exec:java`
 
 To pass command line params:
 
+~~~~
 mvn exec:java "-Dexec.args=--help"
 mvn exec:java "-Dexec.args=-text omgsuchtextwow -theme flat"
-
-
+~~~~
