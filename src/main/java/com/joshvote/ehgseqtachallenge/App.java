@@ -18,6 +18,7 @@ import org.apache.commons.cli.ParseException;
 
 import com.joshvote.ehgseqtachallenge.Configuration.AppConfiguration;
 import com.joshvote.ehgseqtachallenge.Configuration.Theme;
+import com.joshvote.ehgseqtachallenge.Image.MaskedImageGenerator;
 import com.joshvote.ehgseqtachallenge.Image.TextImageMask;
 import com.joshvote.ehgseqtachallenge.Image.ThemeColorProvider;
 
@@ -29,6 +30,10 @@ public class App
 {
 	final static String DefaultText = "Hello :)";
 	final static String DefaultPath = "image.bmp";
+	
+	public static final Theme Theme_Interleaved = new Theme((int) 0b100100100100100, (int) 0b010010010010010, (int) 0b001001001001001);
+	public static final Font Font_Default = new Font("Serif", Font.PLAIN, 100);
+	
 	
 	/**
 	 * generates the config from the command line args. Returns null if args are invalid
@@ -78,8 +83,8 @@ public class App
     		path = DefaultPath;
     	
     	
-    	Font font = new Font("Serif", Font.PLAIN, 100);
-    	Theme theme = new Theme((int) 0b100100100100100, (int) 0b010010010010010, (int) 0b001001001001001);
+    	Font font = Font_Default;
+    	Theme theme = Theme_Interleaved;
     	
     	
     	return new AppConfiguration(font, text, path, theme);
@@ -93,21 +98,12 @@ public class App
     	
 
     	TextImageMask mask = TextImageMask.generateForText(cfg.getText(), cfg.getFont());
+    	ThemeColorProvider colorProvider = new ThemeColorProvider(cfg.getTheme());
     	
         System.out.println(String.format("Generating a %d x %d image at %s", mask.getImageConfiguration().getWidth(), mask.getImageConfiguration().getHeight(), cfg.getPath()));
-        ThemeColorProvider colorProvider = new ThemeColorProvider(cfg.getTheme());
-        BufferedImage img = new BufferedImage(mask.getImageConfiguration().getWidth(), mask.getImageConfiguration().getHeight(), BufferedImage.TYPE_INT_RGB);
-        int maskedSeq = TextImageMask.TotalPixels - 1;
-        int unmaskedSeq = 0;
-        for (int x = 0; x < mask.getImageConfiguration().getWidth(); x++) {
-        	for (int y = 0; y < mask.getImageConfiguration().getHeight(); y++) {
-        		if (mask.isMasked(x, y)) {
-        			img.setRGB(x, y, colorProvider.generateColorForSequence(maskedSeq--));
-        		} else {
-        			img.setRGB(x, y, colorProvider.generateColorForSequence(unmaskedSeq++));
-        		}
-        	}
-        }
+        
+        MaskedImageGenerator generator = new MaskedImageGenerator(colorProvider, mask);  
+        BufferedImage img = generator.generateImage();
         
         File f = new File(cfg.getPath());
         try {

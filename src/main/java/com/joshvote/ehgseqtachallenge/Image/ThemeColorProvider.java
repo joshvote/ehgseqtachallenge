@@ -70,9 +70,16 @@ public class ThemeColorProvider {
 		// now rescale it to 8 bit color space
 		// at the moment (say we have 5 bits of color) we'll have a number in the range 0-31
 		// we want a channel value in the range 0-255 so we have to double it by the number of bits we're short
-		channelValue = ((channelValue + 1) * (1 << (8 - bitIndexes.length))) - 1;
+		int normalisedValue;
+		if (bitIndexes.length < 8) {
+			normalisedValue = channelValue << (8 - bitIndexes.length);
+			normalisedValue |= ((1 << (8 - bitIndexes.length)) - 1); // also set the low bits that we just added as 0
+		} else {
+			normalisedValue = channelValue & 0xff;
+		}
 		
-		return channelValue;
+		
+		return normalisedValue;
 	}
 
 	/**

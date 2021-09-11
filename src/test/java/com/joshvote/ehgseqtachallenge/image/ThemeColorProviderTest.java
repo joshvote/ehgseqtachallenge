@@ -1,4 +1,4 @@
-package Image;
+package com.joshvote.ehgseqtachallenge.image;
 
 import static org.junit.Assert.assertTrue;
 
@@ -53,7 +53,7 @@ public class ThemeColorProviderTest {
 		
 		
 		assertRgb(255, 7, 7, provider.generateColorForSequence(0b100100100100100));
-		assertRgb(129, 191, 15, provider.generateColorForSequence(0b111010001100000));
+		assertRgb(151, 199, 39, provider.generateColorForSequence(0b110010001100000));
 
 	}
 }
