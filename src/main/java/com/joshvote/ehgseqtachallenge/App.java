@@ -34,7 +34,7 @@ public class App
 	
 	public static final Theme Theme_Interleaved = new Theme((int) 0b100100100100100, (int) 0b010010010010010, (int) 0b001001001001001);
 	public static final Theme Theme_Flat = new Theme((int) 0b111110000000000, (int) 0b000001111100000, (int) 0b000000000011111);
-	public static final Theme Theme_Wat = new Theme((int)  0b1100001100001000, (int) 0b0011000011000100, (int) 0b0000110000110010);
+	public static final Theme Theme_Wat = new Theme((int)  0b110000110000100, (int) 0b001100001100010, (int) 0b000011000011001);
 	
 	// these themes dont conform to the challenge - they dont cover the full range of values - they just look nifty
 	public static final Theme Theme_Pineapple = new Theme((int)  0b000011111100100, (int) 0b111111000001000, (int) 0);
