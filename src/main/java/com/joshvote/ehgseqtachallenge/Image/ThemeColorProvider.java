@@ -86,7 +86,7 @@ public class ThemeColorProvider {
 	 * Returns a 32 bit integer with the following bits
 	 * 
 	 * MSB
-	 * 8 bits - Alpha channel - 0xff
+	 * 8 bits - Alpha channel - 0x00
 	 * 8 bits - red channel
 	 * 8 bits - green channel
 	 * 8 bits - blue channel
@@ -102,6 +102,6 @@ public class ThemeColorProvider {
 		int blueChannel = calculateChannelValue(blueBitIndexes, sequenceNumber);
 		
 		
-		return (0xff << 24) | (redChannel << 16) | (greenChannel << 8) | blueChannel;
+		return (redChannel << 16) | (greenChannel << 8) | blueChannel;
 	}
 }

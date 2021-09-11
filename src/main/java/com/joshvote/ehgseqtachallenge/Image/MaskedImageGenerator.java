@@ -16,19 +16,28 @@ public class MaskedImageGenerator {
 		this.mask = mask;
 	}
 	
+	/**
+	 * Simply utility to apply the colors in sequence to an image
+	 * @author Josh
+	 *
+	 */
 	private class PixelApplicator {
 		int maskedSeq = TextImageMask.TotalPixels - 1;
 		int unmaskedSeq = 0;
 		
 		void applyPixel(BufferedImage img, int x, int y, boolean masked) {
-			if (!masked) {
-    			img.setRGB(x, y, colorProvider.generateColorForSequence(maskedSeq--));
+			if (masked) {
+    			img.setRGB(x, y, ~colorProvider.generateColorForSequence(maskedSeq--));
     		} else {
-    			img.setRGB(x, y, colorProvider.generateColorForSequence(unmaskedSeq++));
+    			img.setRGB(x, y, ~colorProvider.generateColorForSequence(unmaskedSeq++));
     		}
 		}
 	}
 	
+	/**
+	 * Uses the internal ImageMask + Theme to generate a pretty picture
+	 * @return
+	 */
 	public BufferedImage generateImage() {
 		BufferedImage img = new BufferedImage(mask.getImageConfiguration().getWidth(), mask.getImageConfiguration().getHeight(), BufferedImage.TYPE_INT_RGB);
 		PixelApplicator applicator = new PixelApplicator();

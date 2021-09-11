@@ -9,6 +9,7 @@ import java.util.HashMap;
 import org.junit.Test;
 
 import com.joshvote.ehgseqtachallenge.App;
+import com.joshvote.ehgseqtachallenge.Configuration.Theme;
 import com.joshvote.ehgseqtachallenge.Image.MaskedImageGenerator;
 import com.joshvote.ehgseqtachallenge.Image.TextImageMask;
 import com.joshvote.ehgseqtachallenge.Image.ThemeColorProvider;
@@ -46,20 +47,11 @@ public class MaskedImageGeneratorTest {
 		public int getY() {
 			return y;
 		}
-		
-		
 	}
 	
-	/**
-	 * Simple validation to ensure that the generated image is nothing but unique pixels
-	 * 
-	 * (ok - this is more of an integration test and should probably live in a seperate package for integration tests but w/e)
-	 */
-	@Test
-	public void allPixelsUnique() {
-		
+	private void doAllPixelsUniqueTest(Theme theme) {
 		TextImageMask mask = TextImageMask.generateForText("this is a test", App.Font_Default);
-    	ThemeColorProvider colorProvider = new ThemeColorProvider(App.Theme_Interleaved);
+    	ThemeColorProvider colorProvider = new ThemeColorProvider(theme);
 		
 		MaskedImageGenerator gen = new MaskedImageGenerator(colorProvider, mask);
 		BufferedImage img = gen.generateImage();
@@ -86,5 +78,35 @@ public class MaskedImageGeneratorTest {
         		}
         	}
         }
+	}
+	
+	/**
+	 * Simple validation to ensure that the generated image is nothing but unique pixels
+	 * 
+	 * (ok - this is more of an integration test and should probably live in a seperate package for integration tests but w/e)
+	 */
+	@Test
+	public void themeInterleavedPixelsUnique() {
+		doAllPixelsUniqueTest(App.Theme_Interleaved);
+	}
+	
+	/**
+	 * Simple validation to ensure that the generated image is nothing but unique pixels
+	 * 
+	 * (ok - this is more of an integration test and should probably live in a seperate package for integration tests but w/e)
+	 */
+	@Test
+	public void themeFlatPixelsUnique() {
+		doAllPixelsUniqueTest(App.Theme_Flat);
+	}
+	
+	/**
+	 * Simple validation to ensure that the generated image is nothing but unique pixels
+	 * 
+	 * (ok - this is more of an integration test and should probably live in a seperate package for integration tests but w/e)
+	 */
+	@Test
+	public void themeWatPixelsUnique() {
+		doAllPixelsUniqueTest(App.Theme_Wat);
 	}
 }

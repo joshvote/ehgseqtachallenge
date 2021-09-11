@@ -14,8 +14,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.10</maven.compiler.source>
-    <maven.compiler.target>1.10</maven.compiler.target>
+    <maven.compiler.release>16</maven.compiler.release>
+    <exec.mainClass>com.joshvote.ehgseqtachallenge.App</exec.mainClass>
   </properties>
 
   <dependencies>
@@ -54,7 +54,7 @@
         </plugin>
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.8.0</version>
+          <version>3.8.1</version>
         </plugin>
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>

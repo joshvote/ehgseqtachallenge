@@ -1,5 +1,6 @@
 package com.joshvote.ehgseqtachallenge.image;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -13,8 +14,11 @@ public class ThemeColorProviderTest {
 		int actualR = (actual & 0x00ff0000) >> 16;
 		int actualG = (actual & 0x0000ff00) >> 8;
 		int actualB = (actual & 0x000000ff);
+		int actualAlpha = (actual & 0xff000000);
 		
 		assertTrue(String.format("Expected (%d, %d, %d) but got (%d, %d, %d)", r, g, b, actualR, actualG, actualB), r == actualR && g == actualG && b == actualB);
+		
+		assertEquals(0, actualAlpha); // alpha shouldnt be set
 	}
 	
 	
